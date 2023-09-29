@@ -4,13 +4,13 @@ import HomeImage from '../assets/Images/homePageMainImage.png'
 function HomePage() {
     return (
         <HomeLayout>
-            <div className="pt-10 text-white flex items-center justify-center gap-10 mx-16 h-[90vh]">
+            <div className="pt-10 text-white flex flex-col lg:flex-row items-center justify-center gap-10 mx-16 h-[90vh] ">
                 <div className="w-1/2 space-y-6">
-                    <h1 className="text-5xl font-semibold">
+                    <h1 className=" text-xl font-semibold md:text-2xl">
                         Find out best{' '}
                         <span className="text-yellow-500">Online Courses</span>
                     </h1>
-                    <p className="text-xl text-gray-200">
+                    <p className="text-xl md:text-[17px] sm:text-[13px] text-gray-200">
                         We have a large library of courses taught by highly skilled and qualified faculties at a very affordable cost.
                     </p>
                     <div className="space-x-6">
