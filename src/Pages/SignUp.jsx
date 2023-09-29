@@ -3,36 +3,38 @@ import HomeLayout from '../Layouts/HomeLayout';
 import { BsPersonCircle } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {toast} from 'react-hot-toast';
+import { toast } from 'react-hot-toast';
 import { createAccount } from '../Redux/Slices/AuthSlice';
-import {isEmail,isValidPassword} from '../Helpers/RegexMatcher';
+import { isEmail, isValidPassword } from '../Helpers/RegexMatcher';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 function SignUp() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [previewImage, setPreviewImage] = useState("");
-
-    const [signupData,setSignupData] = useState({
-        fullName:"",
-        email:"",
-        password:"",
-        avatar:""
+    const [showPassword, setShowPassword] = useState(false);
+    console.log(showPassword);
+    const [signupData, setSignupData] = useState({
+        fullName: "",
+        email: "",
+        password: "",
+        avatar: ""
     });
-     
-    function handleUserInput(e){
-        const {name,value} = e.target;
+
+    function handleUserInput(e) {
+        const { name, value } = e.target;
 
         setSignupData({
             ...signupData,
-            [name]:value,
+            [name]: value,
         })
 
     }
 
-    function getImage(event){
+    function getImage(event) {
         event.preventDefault();
         const uploadImage = event.target.files[0];
 
-        if(uploadImage){
+        if (uploadImage) {
             setSignupData({
                 ...signupData,
                 avatar: uploadImage,
@@ -40,18 +42,18 @@ function SignUp() {
 
             const fileReader = new FileReader();
             fileReader.readAsDataURL(uploadImage);
-            fileReader.addEventListener("load", function(){
+            fileReader.addEventListener("load", function () {
                 setPreviewImage(this.result);
             })
         }
     }
-    async function createNewAccount(e){
+    async function createNewAccount(e) {
         e.preventDefault();
-        if(!signupData.email || !signupData.avatar || !signupData.password || !signupData.fullName){
+        if (!signupData.email || !signupData.avatar || !signupData.password || !signupData.fullName) {
             toast.error('Please fill all the details');
             return;
         }
-        if(signupData.fullName.length < 5){
+        if (signupData.fullName.length < 5) {
             toast.error('Name should be atleast of 5 characters');
             return;
         }
@@ -59,24 +61,24 @@ function SignUp() {
         //     toast.error("Invalid email id");
         //     return;
         // }
-        if(isValidPassword(signupData.password)){
-            toast.error('Password should be 6 - 16 character long with atleast a number and special character');
-            return;
-        }
+        // if (isValidPassword(signupData.password)) {
+        //     toast.error('Password should be 6 - 16 character long with atleast a number and special character');
+        //     return;
+        // }
 
         const formData = new FormData();
-        formData.append('fullName',signupData.fullName);
-        formData.append('email',signupData.email);
-        formData.append('password',signupData.password);
-        formData.append('avatar',signupData.avatar);
+        formData.append('fullName', signupData.fullName);
+        formData.append('email', signupData.email);
+        formData.append('password', signupData.password);
+        formData.append('avatar', signupData.avatar);
 
         const response = await dispatch(createAccount(formData));
-        if(response?.payload?.success) navigate("/");
+        if (response?.payload?.success) navigate("/");
         setSignupData({
-            fullName:"",
-            email:"",
-            password:"",
-            avatar:""
+            fullName: "",
+            email: "",
+            password: "",
+            avatar: ""
         });
         setPreviewImage("");
     }
@@ -97,14 +99,14 @@ function SignUp() {
                         }
                     </label>
                     <input
-                    onChange={getImage}
+                        onChange={getImage}
                         type='file'
                         id='image_uploads'
                         name='image_uploads'
                         className='hidden'
                         accept='.jpg, .jpeg, .png, .svg'
                     />
-                     <div className='flex flex-col gap-1'>
+                    <div className='flex flex-col gap-1'>
                         <label htmlFor="fullName" className='font-semibold'>Name</label>
                         <input
                             type='text'
@@ -130,18 +132,24 @@ function SignUp() {
                             value={signupData.email}
                         />
                     </div>
-                    <div className='flex flex-col gap-1'>
+                    <div className='flex flex-col gap-1 relative'>
                         <label htmlFor="password" className='font-semibold'>Password</label>
                         <input
-                            type='password'
+                            type={!showPassword ? "password" : "text"}
                             required
                             name='password'
                             id='password'
                             placeholder='Enter your password..'
-                            className='bg-transparent px-2 py-1 border '
+                            className='bg-transparent px-2 py-1 border relative '
                             onChange={handleUserInput}
                             value={signupData.password}
                         />
+                        <span onClick={() => setShowPassword((prev) => !prev)} className='absolute right-2 top-9 text-xl cursor-pointer'>
+                            {
+                                !showPassword ? <AiFillEyeInvisible /> : <AiFillEye />
+                            }
+                        </span>
+
                     </div>
                     <button type='submit' className='mt-2 w-full bg-yellow-600 rounded-sm font-semibold py-2 text-lg cursor-pointer hover:bg-yellow-500 transition-all ease-in-out duration-300'>Create Account</button>
 
