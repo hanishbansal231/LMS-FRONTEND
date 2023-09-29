@@ -57,14 +57,14 @@ function SignUp() {
             toast.error('Name should be atleast of 5 characters');
             return;
         }
-        // if(isEmail(signupData.email)){
-        //     toast.error("Invalid email id");
-        //     return;
-        // }
-        // if (isValidPassword(signupData.password)) {
-        //     toast.error('Password should be 6 - 16 character long with atleast a number and special character');
-        //     return;
-        // }
+        if(!isEmail(signupData.email)){
+            toast.error("Invalid email id");
+            return;
+        }
+        if (!isValidPassword(signupData.password)) {
+            toast.error('Password should be 6 - 16 character long with atleast a number and special character');
+            return;
+        }
 
         const formData = new FormData();
         formData.append('fullName', signupData.fullName);
