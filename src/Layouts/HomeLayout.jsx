@@ -3,7 +3,7 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../Components/Footer';
-import {logout} from '../Redux/Slices/AuthSlice';
+import { logout } from '../Redux/Slices/AuthSlice';
 function HomeLayout({ children }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -22,8 +22,8 @@ function HomeLayout({ children }) {
     }
     const handleLogout = async (e) => {
         e.preventDefault();
-        const res = await dispatch(logout()); 
-        if(res?.payload?.success) navigate("/");
+        const res = await dispatch(logout());
+        if (res?.payload?.success) navigate("/");
     }
     return (
         <>
@@ -57,6 +57,13 @@ function HomeLayout({ children }) {
                                 isLoggedIn && role === 'ADMIN' && (
                                     <li>
                                         <Link to={"/admin/dashboard"} >Admin DashBoard</Link>
+                                    </li>
+                                )
+                            }
+                            {
+                                isLoggedIn && role === 'ADMIN' && (
+                                    <li>
+                                        <Link to={"/course/create"} >Create Course</Link>
                                     </li>
                                 )
                             }
