@@ -141,6 +141,22 @@ export const resetPassword = createAsyncThunk("/user/resetPassword", async (data
     }
 });
 
+export const deleteAccount = createAsyncThunk('/auth/deleteAccount',async () => {
+    try{
+        const res = axiosInstance.delete('user/delete');
+        toast.promise(res,{
+            loading:"Wait! Delete Account Process...",
+            success:(data) => {
+                return data?.data?.message
+            },
+            error: "Failed to delete account"
+        });
+        return (await res).data;
+    }catch(Error){
+        toast.error(Error?.response?.data?.message);
+    }
+});
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -173,6 +189,11 @@ const authSlice = createSlice({
                 state.isLoggedIn = true;
                 state.data = action?.payload?.user;
                 state.role = action?.payload?.user?.role;
+            })
+            .addCase(deleteAccount.fulfilled,(state,action) => {
+                state.isLoggedIn = false;
+                state.data = {};
+                state.role = "";
             })
     },
 });

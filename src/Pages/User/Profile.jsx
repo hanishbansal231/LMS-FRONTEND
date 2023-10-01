@@ -1,14 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
 import HomeLayout from "../../Layouts/HomeLayout";
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { deleteAccount } from "../../Redux/Slices/AuthSlice";
 
 function Profile() {
     const { data } = useSelector((state) => state?.auth);
     const dispatch = useDispatch();
-    // useEffect(() => {
-    //     dispatch(getUserData());
-    // },[]);
+    const navigate = useNavigate();
+    async function handleDelete(){
+        await dispatch(deleteAccount());
+        navigate('/')
+    }
     return (
         <HomeLayout>
             <div className="min-h-[90vh] flex items-center justify-center">
@@ -75,6 +78,13 @@ function Profile() {
 
                         )
                     }
+                    <button
+                    onClick={handleDelete}
+                        className="w-full bg-red-600 hover:bg-red-500 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center"
+                    >
+                        Delete Account
+                    </button>
+
                 </div>
             </div>
         </HomeLayout>
