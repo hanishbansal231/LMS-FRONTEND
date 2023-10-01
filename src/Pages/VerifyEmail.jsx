@@ -9,7 +9,7 @@ function VerifyEmail() {
     const { signData } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(otp);
+    
     async function onFormSubmit(e) {
         e.preventDefault();
         const {

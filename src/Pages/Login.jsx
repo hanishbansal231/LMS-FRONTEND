@@ -5,10 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-hot-toast';
 import { login } from '../Redux/Slices/AuthSlice';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const [showPassword, setShowPassword] = useState(false);
     const [loginData, setLoginData] = useState({
         email: "",
         password: "",
@@ -57,10 +58,10 @@ function Login() {
                             value={loginData.email}
                         />
                     </div>
-                    <div className='flex flex-col gap-1'>
+                    <div className='flex flex-col gap-1 relative'>
                         <label htmlFor="password" className='font-semibold'>Password</label>
                         <input
-                            type='password'
+                            type={!showPassword ? "password" : "text"}
                             required
                             name='password'
                             id='password'
@@ -69,6 +70,11 @@ function Login() {
                             onChange={handleUserInput}
                             value={loginData.password}
                         />
+                          <span onClick={() => setShowPassword((prev) => !prev)} className='absolute right-2 top-9 text-xl cursor-pointer'>
+                            {
+                                showPassword ? <AiFillEyeInvisible /> : <AiFillEye />
+                            }
+                        </span>
                     </div>
                     <Link to={"/forgot-password"}>
                         <span className='text-sm italic link text-accent'>Forgot Password</span>
