@@ -31,10 +31,6 @@ function Login() {
             return;
         }
 
-        // const formData = new FormData();
-        // formData.append('email',loginData.email);
-        // formData.append('password',loginData.password);
-
         const response = await dispatch(login(loginData));
         if (response?.payload?.success) navigate("/");
         setLoginData({
@@ -74,6 +70,9 @@ function Login() {
                             value={loginData.password}
                         />
                     </div>
+                    <Link to={"/forgot-password"}>
+                        <span className='text-sm italic link text-accent'>Forgot Password</span>
+                    </Link>
                     <button type='submit' className='mt-2 w-full bg-yellow-600 rounded-sm font-semibold py-2 text-lg cursor-pointer hover:bg-yellow-500 transition-all ease-in-out duration-300'>Login</button>
 
                     <p className='text-center'>

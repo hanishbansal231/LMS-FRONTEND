@@ -16,6 +16,8 @@ import CreateCourse from './Pages/Course/CreateCourse';
 import Profile from './Pages/User/Profile';
 import EditProfile from './Pages/User/EditProfile';
 import ChangePassword from './Pages/User/ChangePassword';
+import ForgotPassword from './Pages/User/ForgotPassword';
+import ResetPassword from './Pages/User/ResetPassword';
 
 function App() {
   return (
@@ -27,6 +29,8 @@ function App() {
       <Route path='/course/description/' element={<CourseDescription />} ></Route>
       <Route path='/contact' element={<Contact />} ></Route>
       <Route path='/denied' element={<Denied />} ></Route>
+      <Route path='/forgot-password' element={<ForgotPassword />}></Route>
+      <Route path='/reset-password/:resetToken' element={<ResetPassword />}></Route>
 
       <Route path='/signup' element={<SignUp />} ></Route>
       <Route path='/login' element={<Login />} ></Route>

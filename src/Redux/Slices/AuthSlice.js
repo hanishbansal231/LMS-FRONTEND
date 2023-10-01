@@ -71,8 +71,8 @@ export const editProfile = createAsyncThunk("/auth/update/profile", async (data)
     }
 });
 
-export const getProfile = createAsyncThunk("/user/details",async () => {
-    try{
+export const getProfile = createAsyncThunk("/user/details", async () => {
+    try {
         const res = axiosInstance.get(`user/me`);
         // toast.promise(res,{
         //     loading:"",
@@ -81,21 +81,50 @@ export const getProfile = createAsyncThunk("/user/details",async () => {
         // });
 
         return (await res).data;
-    }catch(Error){
+    } catch (Error) {
         toast.error(Error?.response?.data?.message);
     }
 });
 
-export const changePassword = createAsyncThunk("/user/changePassword",async (data) => {
-    try{
-        const res = axiosInstance.post("user/change-password",data);
-        toast.promise(res,{
-            loading:"Wait! password change progress...",
-            success:"Password change successfully",
-            error:"Failed to change password"
+export const changePassword = createAsyncThunk("/user/changePassword", async (data) => {
+    try {
+        const res = axiosInstance.post("user/change-password", data);
+        toast.promise(res, {
+            loading: "Wait! password change progress...",
+            success: "Password change successfully",
+            error: "Failed to change password"
         });
         return (await res).data;
-    }catch(Error){
+    } catch (Error) {
+        toast.error(Error?.response?.data?.message);
+    }
+});
+
+export const forgotPassword = createAsyncThunk("/user/forgotPassword", async (data) => {
+    try {
+        const res = axiosInstance.post("user/reset", data[1]);
+        toast.promise(res, {
+            loading: "Wait! sending email processing...",
+            success: "Email Send Successfully",
+            error: "Failed to send email",
+        });
+        data[0](true);
+        return (await res).data;
+    } catch (Error) {
+        toast.error(Error?.response?.data?.message);
+    }
+});
+
+export const resetPassword = createAsyncThunk("/user/resetPassword", async (data) => {
+    try {
+        const res = axiosInstance.post(`user/reset/${data[0]}`, data[1]);
+        toast.promise(res, {
+            loading: "Wait! forget password Processing",
+            success: "forgot password successfully",
+            error: "Failed to forgot password",
+        });
+        return (await res).data;
+    } catch (Error) {
         toast.error(Error?.response?.data?.message);
     }
 });
@@ -121,8 +150,8 @@ const authSlice = createSlice({
                 state.data = {};
                 state.role = "";
             })
-            .addCase(getProfile.fulfilled,(state,action) => {
-                if(!action?.payload?.user) return;
+            .addCase(getProfile.fulfilled, (state, action) => {
+                if (!action?.payload?.user) return;
                 localStorage.setItem("data", JSON.stringify(action?.payload?.user));
                 localStorage.setItem("isLoggedIn", true);
                 localStorage.setItem("role", action?.payload?.user?.role);
