@@ -19,6 +19,8 @@ import ChangePassword from './Pages/User/ChangePassword';
 import ForgotPassword from './Pages/User/ForgotPassword';
 import ResetPassword from './Pages/User/ResetPassword';
 import VerifyEmail from './Pages/VerifyEmail';
+import Checkout from './Pages/Payment/Checkout';
+import CheckoutSuccess from './Pages/Payment/CheckoutSuccess';
 
 function App() {
   return (
@@ -44,6 +46,8 @@ function App() {
       <Route path='/user/profile' element={<Profile />}></Route>
       <Route path='/user/edit-profile' element={<EditProfile />}></Route>
       <Route path='/change-password' element={<ChangePassword />}></Route>
+      <Route path='/checkout' element={<Checkout />}></Route>
+      <Route path='/checkout/success' element={<CheckoutSuccess />}></Route>
       </Route>
 
       <Route path='*' element={<NotFound />} ></Route>

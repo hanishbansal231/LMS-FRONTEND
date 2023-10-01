@@ -75,7 +75,7 @@ export const cancelCourseBundle = createAsyncThunk("/payment/cancel", async () =
 });
 
 const razorpaySlice = createSlice({
-    name: '',
+    name: 'razorpay',
     initialState,
     reducers: {
 

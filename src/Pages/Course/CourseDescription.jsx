@@ -1,9 +1,10 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import HomeLayout from "../../Layouts/HomeLayout";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 function CourseDescription() {
+    const navigate = useNavigate();
     const { role } = useSelector((state) => state.auth);
     const { state } = useLocation();
     return (
@@ -41,6 +42,7 @@ function CourseDescription() {
                                         </button>
                                     ) : (
                                         <button
+                                        onClick={() => navigate('/checkout')}
                                             className="bg-yellow-600 text-xl roundec-md font-bold px-5 py-3 w-full hover:bg-yellow-500 transition-all ease-in-out duration-300"
                                         >
                                             Subscribe
