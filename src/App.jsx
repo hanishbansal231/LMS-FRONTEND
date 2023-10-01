@@ -18,6 +18,7 @@ import EditProfile from './Pages/User/EditProfile';
 import ChangePassword from './Pages/User/ChangePassword';
 import ForgotPassword from './Pages/User/ForgotPassword';
 import ResetPassword from './Pages/User/ResetPassword';
+import VerifyEmail from './Pages/VerifyEmail';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path='/courses' element={<CourseList />} ></Route>
       <Route path='/course/description/' element={<CourseDescription />} ></Route>
       <Route path='/contact' element={<Contact />} ></Route>
+      <Route path='/verify-email' element={<VerifyEmail />} ></Route>
       <Route path='/denied' element={<Denied />} ></Route>
       <Route path='/forgot-password' element={<ForgotPassword />}></Route>
       <Route path='/reset-password/:resetToken' element={<ResetPassword />}></Route>

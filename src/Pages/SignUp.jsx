@@ -4,7 +4,7 @@ import { BsPersonCircle } from 'react-icons/bs';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-hot-toast';
-import { createAccount } from '../Redux/Slices/AuthSlice';
+import { createAccount, sendOtp, setUserData } from '../Redux/Slices/AuthSlice';
 import { isEmail, isValidPassword } from '../Helpers/RegexMatcher';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 function SignUp() {
@@ -12,7 +12,7 @@ function SignUp() {
     const navigate = useNavigate();
     const [previewImage, setPreviewImage] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    console.log(showPassword);
+
     const [signupData, setSignupData] = useState({
         fullName: "",
         email: "",
@@ -57,7 +57,7 @@ function SignUp() {
             toast.error('Name should be atleast of 5 characters');
             return;
         }
-        if(!isEmail(signupData.email)){
+        if (!isEmail(signupData.email)) {
             toast.error("Invalid email id");
             return;
         }
@@ -65,15 +65,15 @@ function SignUp() {
             toast.error('Password should be 6 - 16 character long with atleast a number and special character');
             return;
         }
+        // const response = await dispatch(createAccount(formData));
+        console.log(signupData?.email);
+        const response = await dispatch(sendOtp({ email: signupData?.email }));
+        
+        if (response?.payload?.success) {
+            dispatch(setUserData(signupData));
+            navigate('/verify-email');
+        }
 
-        const formData = new FormData();
-        formData.append('fullName', signupData.fullName);
-        formData.append('email', signupData.email);
-        formData.append('password', signupData.password);
-        formData.append('avatar', signupData.avatar);
-
-        const response = await dispatch(createAccount(formData));
-        if (response?.payload?.success) navigate("/");
         setSignupData({
             fullName: "",
             email: "",
