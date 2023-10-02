@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 function CourseDescription() {
     const navigate = useNavigate();
     const { role } = useSelector((state) => state.auth);
+    const { data } = useSelector((state) => state.auth);
     const { state } = useLocation();
     return (
         <HomeLayout>
@@ -33,9 +34,10 @@ function CourseDescription() {
                                 </p>
                             </div>
                             {
-                                role === 'ADMIN' //|| data?.subscription?.status === 'ACTIVE'
+                                role === 'ADMIN' || data?.subscription?.status === 'active'
                                     ? (
                                         <button
+                                        onClick={() => navigate('/course/display-lectures',{state:{...state}})}
                                             className="bg-yellow-600 text-xl roundec-md font-bold px-5 py-3 w-full hover:bg-yellow-500 transition-all ease-in-out duration-300"
                                         >
                                             Watch Lectures
