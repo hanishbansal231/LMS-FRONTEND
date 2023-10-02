@@ -10,17 +10,18 @@ function Profile() {
     const { data } = useSelector((state) => state?.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    async function handleDelete(){
+    async function handleDelete() {
         await dispatch(deleteAccount());
         navigate('/')
     }
-    async function handleCancellation(){
+    async function handleCancellation() {
         toast('Initiating cancellation')
         await dispatch(cancelCourseBundle());
         await dispatch(getProfile());
         toast.success('Cancellation completed!')
         navigate('/');
     }
+
     return (
         <HomeLayout>
             <div className="min-h-[90vh] flex items-center justify-center">
@@ -55,7 +56,7 @@ function Profile() {
                         </p>
                         <p>
                             {
-                                data?.subscription?.status === "ACTIVE" ? "ACTIVE" : "INACTIVE"
+                                data?.subscription?.status === "active" ? "ACTIVE" : "INACTIVE"
                             }
                         </p>
                     </div>
@@ -78,9 +79,9 @@ function Profile() {
                         </Link>
                     </div>
                     {
-                        data?.subscription?.status !== 'ACTIVE' && (
+                        data?.subscription?.status === 'active' && (
                             <button
-                            onClick={handleCancellation}
+                                onClick={handleCancellation}
                                 className="w-full bg-red-600 hover:bg-red-500 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center"
                             >
                                 Cancel Subscription
@@ -88,12 +89,17 @@ function Profile() {
 
                         )
                     }
-                    <button
-                    onClick={handleDelete}
-                        className="w-full bg-red-600 hover:bg-red-500 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center"
-                    >
-                        Delete Account
-                    </button>
+                    {
+                        data &&
+                        (
+                            <button
+                                onClick={handleDelete}
+                                className="w-full bg-red-600 hover:bg-red-500 transition-all ease-in-out duration-300 rounded-sm font-semibold py-2 cursor-pointer text-center"
+                            >
+                                Delete Account
+                            </button>
+                        )
+                    }
 
                 </div>
             </div>
