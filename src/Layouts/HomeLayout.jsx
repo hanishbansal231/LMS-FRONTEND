@@ -21,7 +21,7 @@ function HomeLayout({ children }) {
         changeWidth();
     }
     const handleLogout = async (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const res = await dispatch(logout());
         if (res?.payload?.success) navigate("/");
     }

@@ -48,6 +48,7 @@ function AddLectures() {
         const response = await dispatch(addCourseLecture(userInput));
 
         if (response?.payload?.success) {
+            navigate(-1);
             setUserInput({
                 id: courseDetails._id,
                 lecture: undefined,
@@ -55,7 +56,6 @@ function AddLectures() {
                 description: "",
                 videoSrc: "",
             });
-            navigate('/course/display-lectures');
         }
     }
 

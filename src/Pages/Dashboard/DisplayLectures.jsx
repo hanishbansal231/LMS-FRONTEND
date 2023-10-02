@@ -13,7 +13,8 @@ function DisplayLectures() {
     const [currentVideo, setCurrentVideo] = useState(0);
     useEffect(() => {
         console.log(lectures);
-        if (!state) navigate('/courses')
+        console.log(state)
+        // if (!state) navigate('/courses')
         dispatch(getCourseLecture(state._id));
     }, []);
     async function onLectureDelete(courseId, lectureId) {
@@ -26,7 +27,8 @@ function DisplayLectures() {
                 <div className="text-center text-2xl font-semibold text-yellow-500">
                     Course Name: {state?.title}
                 </div>
-                {lectures && lectures.length > 0 &&
+                {
+                lectures && lectures.length > 0 ?
                     (<div className={`flex justify-center gap-10 w-full`}>
                         <div className="space-y-5 w-[28rem] p-2 rouded-lg shadow-[0_0_10px_black]">
                             <video
@@ -98,6 +100,14 @@ function DisplayLectures() {
                             }
                         </ul>
                     </div>)
+                    : 
+                    (   
+                           role && role === 'ADMIN' && (
+                                <button onClick={() => navigate('/course/add-lecture', { state: { ...state } })} className="btn-primary px-2 py-1 rounded-md font-semibold text-sm">
+                                    Add New Lecture
+                                </button>
+                            )
+                    )
                 }
             </div>
         </HomeLayout>
