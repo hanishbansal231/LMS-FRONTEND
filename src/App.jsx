@@ -23,39 +23,41 @@ import Checkout from './Pages/Payment/Checkout';
 import CheckoutSuccess from './Pages/Payment/CheckoutSuccess';
 import CheckoutFail from './Pages/Payment/CheckoutFail';
 import DisplayLectures from './Pages/Dashboard/DisplayLectures';
+import AddLectures from './Pages/Dashboard/AddLectures';
 
 function App() {
   return (
     <>
-    <Routes>
-      <Route path='/' element={<HomePage />} ></Route>
-      <Route path='/about' element={<AboutUs />} ></Route>
-      <Route path='/courses' element={<CourseList />} ></Route>
-      <Route path='/course/description/' element={<CourseDescription />} ></Route>
-      <Route path='/contact' element={<Contact />} ></Route>
-      <Route path='/verify-email' element={<VerifyEmail />} ></Route>
-      <Route path='/denied' element={<Denied />} ></Route>
-      <Route path='/forgot-password' element={<ForgotPassword />}></Route>
-      <Route path='/reset-password/:resetToken' element={<ResetPassword />}></Route>
+      <Routes>
+        <Route path='/' element={<HomePage />} ></Route>
+        <Route path='/about' element={<AboutUs />} ></Route>
+        <Route path='/courses' element={<CourseList />} ></Route>
+        <Route path='/course/description/' element={<CourseDescription />} ></Route>
+        <Route path='/contact' element={<Contact />} ></Route>
+        <Route path='/verify-email' element={<VerifyEmail />} ></Route>
+        <Route path='/denied' element={<Denied />} ></Route>
+        <Route path='/forgot-password' element={<ForgotPassword />}></Route>
+        <Route path='/reset-password/:resetToken' element={<ResetPassword />}></Route>
 
-      <Route path='/signup' element={<SignUp />} ></Route>
-      <Route path='/login' element={<Login />} ></Route>
+        <Route path='/signup' element={<SignUp />} ></Route>
+        <Route path='/login' element={<Login />} ></Route>
 
-      <Route element={<RequiredAuth allowedRoles={["ADMIN"]} />}>
-        <Route path='/course/create' element={<CreateCourse />}></Route>
-      </Route>
-      <Route element={<RequiredAuth allowedRoles={["ADMIN","USER"]} />}>
-      <Route path='/user/profile' element={<Profile />}></Route>
-      <Route path='/user/edit-profile' element={<EditProfile />}></Route>
-      <Route path='/change-password' element={<ChangePassword />}></Route>
-      <Route path='/checkout' element={<Checkout />}></Route>
-      <Route path='/checkout/success' element={<CheckoutSuccess />}></Route>
-      <Route path='/checkout/fail' element={<CheckoutFail />}></Route>
-      <Route path='/course/display-lectures' element={<DisplayLectures />}></Route>
-      </Route>
+        <Route element={<RequiredAuth allowedRoles={["ADMIN"]} />}>
+          <Route path='/course/create' element={<CreateCourse />}></Route>
+          <Route path='/course/add-lecture' element={<AddLectures />}></Route>
+        </Route>
+        <Route element={<RequiredAuth allowedRoles={["ADMIN", "USER"]} />}>
+          <Route path='/user/profile' element={<Profile />}></Route>
+          <Route path='/user/edit-profile' element={<EditProfile />}></Route>
+          <Route path='/change-password' element={<ChangePassword />}></Route>
+          <Route path='/checkout' element={<Checkout />}></Route>
+          <Route path='/checkout/success' element={<CheckoutSuccess />}></Route>
+          <Route path='/checkout/fail' element={<CheckoutFail />}></Route>
+          <Route path='/course/display-lectures' element={<DisplayLectures />}></Route>
+        </Route>
 
-      <Route path='*' element={<NotFound />} ></Route>
-    </Routes>
+        <Route path='*' element={<NotFound />} ></Route>
+      </Routes>
     </>
   )
 }
